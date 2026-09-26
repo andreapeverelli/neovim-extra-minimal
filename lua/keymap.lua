@@ -17,3 +17,28 @@ end, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<leader>nh", "<cmd>nohlsearch<CR>", {
     desc = "Clear search highlight",
 })
+
+vim.keymap.set("n", "<leader>hh", function()
+    local filename = vim.fn.expand("%:t")
+
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, {
+        "<?php",
+        "",
+        "/*",
+        " * Copyright (c) 2026 Andrea Peverelli",
+        " * https://github.com/andreapeverelli/.git",
+        " *",
+        " * SPDX-License-Identifier: GPL-3.0-only",
+        " */",
+        "",
+        "/**",
+        " * @file " .. filename,
+        " * @brief ",
+        " */",
+        "",
+        "declare(strict_types=1);",
+        "",
+        "namespace AndreaPeverelli\\;",
+        "",
+    })
+end, { desc = "Insert file header" })
