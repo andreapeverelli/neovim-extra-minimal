@@ -1,26 +1,37 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
-        ft = { "php", "lua", "json", "yaml", "html", "css" },
 
-        opts = {
-            ensure_installed = {
+        config = function()
+            require("nvim-treesitter").setup({})
+
+            require("nvim-treesitter").install({
                 "php",
                 "lua",
                 "json",
                 "yaml",
                 "html",
                 "css",
-            },
+                "javascript",
+            })
 
-            highlight = {
-                enable = true,
-            },
-
-            indent = {
-                enable = true,
-            },
-        },
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
+                    "php",
+                    "lua",
+                    "json",
+                    "yaml",
+                    "html",
+                    "css",
+                    "javascript",
+                },
+                callback = function()
+                    vim.treesitter.start()
+                end,
+            })
+        end,
     },
 }
